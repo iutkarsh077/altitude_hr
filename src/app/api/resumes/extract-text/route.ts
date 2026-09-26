@@ -1,4 +1,5 @@
 import "@/lib/pdf-polyfills";
+import "pdf-parse/worker";
 import { randomUUID } from "node:crypto";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { Document } from "@langchain/core/documents";
