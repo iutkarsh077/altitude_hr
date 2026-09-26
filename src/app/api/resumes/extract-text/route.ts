@@ -1,5 +1,5 @@
+import "@/lib/pdf-polyfills";
 import { randomUUID } from "node:crypto";
-
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { Document } from "@langchain/core/documents";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
