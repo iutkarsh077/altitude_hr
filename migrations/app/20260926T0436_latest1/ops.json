@@ -1,0 +1,412 @@
+[
+  {
+    "id": "collection.chatSession.create",
+    "label": "Create collection chatSession",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "collection chatSession does not exist",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "name",
+          "op": "$eq",
+          "value": "chatSession"
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create collection chatSession",
+        "command": {
+          "kind": "createCollection",
+          "collection": "chatSession",
+          "validator": {
+            "$jsonSchema": {
+              "additionalProperties": false,
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "objectId"
+                },
+                "createdAt": {
+                  "bsonType": "date"
+                },
+                "name": {
+                  "bsonType": "string"
+                },
+                "updatedAt": {
+                  "bsonType": "date"
+                },
+                "userId": {
+                  "bsonType": "objectId"
+                }
+              },
+              "required": [
+                "_id",
+                "createdAt",
+                "name",
+                "updatedAt",
+                "userId"
+              ]
+            }
+          },
+          "validationLevel": "strict",
+          "validationAction": "error"
+        }
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "collection.chats.create",
+    "label": "Create collection chats",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "collection chats does not exist",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "name",
+          "op": "$eq",
+          "value": "chats"
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create collection chats",
+        "command": {
+          "kind": "createCollection",
+          "collection": "chats",
+          "validator": {
+            "$jsonSchema": {
+              "additionalProperties": false,
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "objectId"
+                },
+                "chatSessionId": {
+                  "bsonType": "objectId"
+                },
+                "content": {
+                  "bsonType": "string"
+                },
+                "createdAt": {
+                  "bsonType": "date"
+                },
+                "role": {
+                  "bsonType": "string"
+                },
+                "updatedAt": {
+                  "bsonType": "date"
+                }
+              },
+              "required": [
+                "_id",
+                "chatSessionId",
+                "content",
+                "createdAt",
+                "role",
+                "updatedAt"
+              ]
+            }
+          },
+          "validationLevel": "strict",
+          "validationAction": "error"
+        }
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "collection.uploadedPdf.create",
+    "label": "Create collection uploadedPdf",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "collection uploadedPdf does not exist",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "name",
+          "op": "$eq",
+          "value": "uploadedPdf"
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create collection uploadedPdf",
+        "command": {
+          "kind": "createCollection",
+          "collection": "uploadedPdf",
+          "validator": {
+            "$jsonSchema": {
+              "additionalProperties": false,
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "objectId"
+                },
+                "createdAt": {
+                  "bsonType": "date"
+                },
+                "documentId": {
+                  "bsonType": "string"
+                },
+                "fileName": {
+                  "bsonType": "string"
+                },
+                "key": {
+                  "bsonType": "string"
+                },
+                "updatedAt": {
+                  "bsonType": "date"
+                },
+                "userId": {
+                  "bsonType": "objectId"
+                }
+              },
+              "required": [
+                "_id",
+                "createdAt",
+                "documentId",
+                "fileName",
+                "key",
+                "updatedAt",
+                "userId"
+              ]
+            }
+          },
+          "validationLevel": "strict",
+          "validationAction": "error"
+        }
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "collection.user.create",
+    "label": "Create collection user",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "collection user does not exist",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "name",
+          "op": "$eq",
+          "value": "user"
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create collection user",
+        "command": {
+          "kind": "createCollection",
+          "collection": "user",
+          "validator": {
+            "$jsonSchema": {
+              "additionalProperties": false,
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "objectId"
+                },
+                "createdAt": {
+                  "bsonType": "date"
+                },
+                "email": {
+                  "bsonType": "string"
+                },
+                "googleId": {
+                  "bsonType": "string"
+                },
+                "image": {
+                  "bsonType": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "name": {
+                  "bsonType": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "updatedAt": {
+                  "bsonType": "date"
+                }
+              },
+              "required": [
+                "_id",
+                "createdAt",
+                "email",
+                "googleId",
+                "updatedAt"
+              ]
+            }
+          },
+          "validationLevel": "strict",
+          "validationAction": "error"
+        }
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "index.user.create(email:1)",
+    "label": "Create index on user (email:1)",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "index does not already exist on user",
+        "source": {
+          "kind": "listIndexes",
+          "collection": "user"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "key",
+          "op": "$eq",
+          "value": {
+            "email": 1
+          }
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index on user",
+        "command": {
+          "kind": "createIndex",
+          "collection": "user",
+          "keys": [
+            {
+              "direction": 1,
+              "field": "email"
+            }
+          ],
+          "unique": true,
+          "name": "email_1"
+        }
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "index exists on user",
+        "source": {
+          "kind": "listIndexes",
+          "collection": "user"
+        },
+        "filter": {
+          "kind": "and",
+          "exprs": [
+            {
+              "kind": "field",
+              "field": "key",
+              "op": "$eq",
+              "value": {
+                "email": 1
+              }
+            },
+            {
+              "kind": "field",
+              "field": "unique",
+              "op": "$eq",
+              "value": true
+            }
+          ]
+        },
+        "expect": "exists"
+      }
+    ]
+  },
+  {
+    "id": "index.user.create(googleId:1)",
+    "label": "Create index on user (googleId:1)",
+    "operationClass": "additive",
+    "precheck": [
+      {
+        "description": "index does not already exist on user",
+        "source": {
+          "kind": "listIndexes",
+          "collection": "user"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "key",
+          "op": "$eq",
+          "value": {
+            "googleId": 1
+          }
+        },
+        "expect": "notExists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index on user",
+        "command": {
+          "kind": "createIndex",
+          "collection": "user",
+          "keys": [
+            {
+              "direction": 1,
+              "field": "googleId"
+            }
+          ],
+          "unique": true,
+          "name": "googleId_1"
+        }
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "index exists on user",
+        "source": {
+          "kind": "listIndexes",
+          "collection": "user"
+        },
+        "filter": {
+          "kind": "and",
+          "exprs": [
+            {
+              "kind": "field",
+              "field": "key",
+              "op": "$eq",
+              "value": {
+                "googleId": 1
+              }
+            },
+            {
+              "kind": "field",
+              "field": "unique",
+              "op": "$eq",
+              "value": true
+            }
+          ]
+        },
+        "expect": "exists"
+      }
+    ]
+  }
+]

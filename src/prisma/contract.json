@@ -1,0 +1,680 @@
+{
+  "schemaVersion": "1",
+  "targetFamily": "mongo",
+  "target": "mongo",
+  "profileHash": "251b3ce23f6c9f561892e7c1af9d2cc941a13d64ba1aa7226b90036b09568cc3",
+  "roots": {
+    "chatSession": {
+      "model": "ChatSession",
+      "namespace": "__unbound__"
+    },
+    "chats": {
+      "model": "Chats",
+      "namespace": "__unbound__"
+    },
+    "uploadedPdf": {
+      "model": "UploadedPdf",
+      "namespace": "__unbound__"
+    },
+    "user": {
+      "model": "User",
+      "namespace": "__unbound__"
+    }
+  },
+  "domain": {
+    "namespaces": {
+      "__unbound__": {
+        "models": {
+          "ChatSession": {
+            "fields": {
+              "_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "userId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "chats": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "_id"
+                  ],
+                  "targetFields": [
+                    "chatSessionId"
+                  ]
+                },
+                "to": {
+                  "model": "Chats",
+                  "namespace": "__unbound__"
+                }
+              },
+              "user": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "userId"
+                  ],
+                  "targetFields": [
+                    "_id"
+                  ]
+                },
+                "to": {
+                  "model": "User",
+                  "namespace": "__unbound__"
+                }
+              }
+            },
+            "storage": {
+              "collection": "chatSession"
+            }
+          },
+          "Chats": {
+            "fields": {
+              "_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "candidates": {
+                "many": true,
+                "nullable": false,
+                "type": {
+                  "kind": "valueObject",
+                  "name": "Candidate"
+                }
+              },
+              "chatSessionId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "content": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "role": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "chatSession": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "chatSessionId"
+                  ],
+                  "targetFields": [
+                    "_id"
+                  ]
+                },
+                "to": {
+                  "model": "ChatSession",
+                  "namespace": "__unbound__"
+                }
+              }
+            },
+            "storage": {
+              "collection": "chats"
+            }
+          },
+          "UploadedPdf": {
+            "fields": {
+              "_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "documentId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "fileName": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "key": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "userId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "uploadedBy": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "userId"
+                  ],
+                  "targetFields": [
+                    "_id"
+                  ]
+                },
+                "to": {
+                  "model": "User",
+                  "namespace": "__unbound__"
+                }
+              }
+            },
+            "storage": {
+              "collection": "uploadedPdf"
+            }
+          },
+          "User": {
+            "fields": {
+              "_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "email": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "googleId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "image": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "chatSessions": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "_id"
+                  ],
+                  "targetFields": [
+                    "userId"
+                  ]
+                },
+                "to": {
+                  "model": "ChatSession",
+                  "namespace": "__unbound__"
+                }
+              },
+              "uploadedpdf": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "_id"
+                  ],
+                  "targetFields": [
+                    "userId"
+                  ]
+                },
+                "to": {
+                  "model": "UploadedPdf",
+                  "namespace": "__unbound__"
+                }
+              }
+            },
+            "storage": {
+              "collection": "user"
+            }
+          }
+        },
+        "valueObjects": {
+          "Candidate": {
+            "fields": {
+              "candidateName": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "documentId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "downloadUrl": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "fileName": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "headline": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "matchScore": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/int32@1",
+                  "kind": "scalar"
+                }
+              },
+              "relevantExperience": {
+                "many": true,
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "skills": {
+                "many": true,
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "summary": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "storage": {
+    "namespaces": {
+      "__unbound__": {
+        "entries": {
+          "collection": {
+            "chatSession": {
+              "kind": "mongo-collection",
+              "validator": {
+                "jsonSchema": {
+                  "additionalProperties": false,
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "objectId"
+                    },
+                    "createdAt": {
+                      "bsonType": "date"
+                    },
+                    "name": {
+                      "bsonType": "string"
+                    },
+                    "updatedAt": {
+                      "bsonType": "date"
+                    },
+                    "userId": {
+                      "bsonType": "objectId"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "createdAt",
+                    "name",
+                    "updatedAt",
+                    "userId"
+                  ]
+                },
+                "kind": "mongo-validator",
+                "validationAction": "error",
+                "validationLevel": "strict"
+              }
+            },
+            "chats": {
+              "kind": "mongo-collection",
+              "validator": {
+                "jsonSchema": {
+                  "additionalProperties": false,
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "objectId"
+                    },
+                    "candidates": {
+                      "bsonType": "array",
+                      "items": {
+                        "additionalProperties": false,
+                        "bsonType": "object",
+                        "properties": {
+                          "candidateName": {
+                            "bsonType": "string"
+                          },
+                          "documentId": {
+                            "bsonType": "string"
+                          },
+                          "downloadUrl": {
+                            "bsonType": "string"
+                          },
+                          "fileName": {
+                            "bsonType": "string"
+                          },
+                          "headline": {
+                            "bsonType": "string"
+                          },
+                          "matchScore": {
+                            "bsonType": "int"
+                          },
+                          "relevantExperience": {
+                            "bsonType": "array",
+                            "items": {
+                              "bsonType": "string"
+                            }
+                          },
+                          "skills": {
+                            "bsonType": "array",
+                            "items": {
+                              "bsonType": "string"
+                            }
+                          },
+                          "summary": {
+                            "bsonType": "string"
+                          }
+                        },
+                        "required": [
+                          "candidateName",
+                          "documentId",
+                          "downloadUrl",
+                          "fileName",
+                          "headline",
+                          "matchScore",
+                          "relevantExperience",
+                          "skills",
+                          "summary"
+                        ]
+                      }
+                    },
+                    "chatSessionId": {
+                      "bsonType": "objectId"
+                    },
+                    "content": {
+                      "bsonType": "string"
+                    },
+                    "createdAt": {
+                      "bsonType": "date"
+                    },
+                    "role": {
+                      "bsonType": "string"
+                    },
+                    "updatedAt": {
+                      "bsonType": "date"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "candidates",
+                    "chatSessionId",
+                    "content",
+                    "createdAt",
+                    "role",
+                    "updatedAt"
+                  ]
+                },
+                "kind": "mongo-validator",
+                "validationAction": "error",
+                "validationLevel": "strict"
+              }
+            },
+            "uploadedPdf": {
+              "kind": "mongo-collection",
+              "validator": {
+                "jsonSchema": {
+                  "additionalProperties": false,
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "objectId"
+                    },
+                    "createdAt": {
+                      "bsonType": "date"
+                    },
+                    "documentId": {
+                      "bsonType": "string"
+                    },
+                    "fileName": {
+                      "bsonType": "string"
+                    },
+                    "key": {
+                      "bsonType": "string"
+                    },
+                    "updatedAt": {
+                      "bsonType": "date"
+                    },
+                    "userId": {
+                      "bsonType": "objectId"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "createdAt",
+                    "documentId",
+                    "fileName",
+                    "key",
+                    "updatedAt",
+                    "userId"
+                  ]
+                },
+                "kind": "mongo-validator",
+                "validationAction": "error",
+                "validationLevel": "strict"
+              }
+            },
+            "user": {
+              "indexes": [
+                {
+                  "keys": [
+                    {
+                      "direction": 1,
+                      "field": "email"
+                    }
+                  ],
+                  "kind": "mongo-index",
+                  "unique": true
+                },
+                {
+                  "keys": [
+                    {
+                      "direction": 1,
+                      "field": "googleId"
+                    }
+                  ],
+                  "kind": "mongo-index",
+                  "unique": true
+                }
+              ],
+              "kind": "mongo-collection",
+              "validator": {
+                "jsonSchema": {
+                  "additionalProperties": false,
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "objectId"
+                    },
+                    "createdAt": {
+                      "bsonType": "date"
+                    },
+                    "email": {
+                      "bsonType": "string"
+                    },
+                    "googleId": {
+                      "bsonType": "string"
+                    },
+                    "image": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "name": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "updatedAt": {
+                      "bsonType": "date"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "createdAt",
+                    "email",
+                    "googleId",
+                    "updatedAt"
+                  ]
+                },
+                "kind": "mongo-validator",
+                "validationAction": "error",
+                "validationLevel": "strict"
+              }
+            }
+          }
+        },
+        "id": "__unbound__",
+        "kind": "mongo-database"
+      }
+    },
+    "storageHash": "644460758d1b590ebeba1e747d0854a215358f5276900ebb704d176326540370"
+  },
+  "capabilities": {},
+  "extensions": {},
+  "meta": {},
+  "_generated": {
+    "warning": "⚠️  GENERATED FILE - DO NOT EDIT",
+    "message": "This file is automatically generated by \"prisma contract emit\".",
+    "regenerate": "To regenerate, run: prisma contract emit"
+  }
+}

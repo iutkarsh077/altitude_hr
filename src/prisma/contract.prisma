@@ -1,0 +1,56 @@
+// use prisma-8
+model User {
+  id           ObjectId      @id @map("_id")
+  email        String        @unique
+  googleId     String        @unique
+  name         String?
+  image        String?
+  uploadedpdf  UploadedPdf[]
+  chatSessions ChatSession[]
+  createdAt    DateTime
+  updatedAt    DateTime
+}
+
+model UploadedPdf {
+  id         ObjectId @id @map("_id")
+  documentId String
+  key        String
+  fileName   String
+  uploadedBy User     @relation(fields:[userId], references:[id])
+  userId     ObjectId
+  createdAt  DateTime
+  updatedAt  DateTime
+}
+
+type Candidate {
+  documentId          String
+  candidateName       String
+  headline             String
+  matchScore           Int
+  summary              String
+  skills               String[]
+  relevantExperience   String[]
+  fileName             String
+  downloadUrl          String
+}
+
+model ChatSession {
+  id        ObjectId @id @map("_id")
+  name      String
+  user      User     @relation(fields:[userId], references:[id])
+  userId    ObjectId
+  chats     Chats[]
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model Chats {
+  id            ObjectId    @id @map("_id")
+  role          String
+  content       String
+  chatSession   ChatSession @relation(fields:[chatSessionId], references:[id])
+  chatSessionId ObjectId
+   candidates      Candidate[]
+  createdAt     DateTime
+  updatedAt     DateTime
+}

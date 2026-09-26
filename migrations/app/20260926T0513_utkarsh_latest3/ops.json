@@ -1,0 +1,244 @@
+[
+  {
+    "id": "validator.chats.update",
+    "label": "Update validator on chats",
+    "operationClass": "destructive",
+    "precheck": [
+      {
+        "description": "collection chats exists",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "field",
+          "field": "name",
+          "op": "$eq",
+          "value": "chats"
+        },
+        "expect": "exists"
+      }
+    ],
+    "execute": [
+      {
+        "description": "modify chats",
+        "command": {
+          "kind": "collMod",
+          "collection": "chats",
+          "validator": {
+            "$jsonSchema": {
+              "additionalProperties": false,
+              "bsonType": "object",
+              "properties": {
+                "_id": {
+                  "bsonType": "objectId"
+                },
+                "candidates": {
+                  "bsonType": "array",
+                  "items": {
+                    "additionalProperties": false,
+                    "bsonType": "object",
+                    "properties": {
+                      "candidateName": {
+                        "bsonType": "string"
+                      },
+                      "documentId": {
+                        "bsonType": "string"
+                      },
+                      "downloadUrl": {
+                        "bsonType": "string"
+                      },
+                      "fileName": {
+                        "bsonType": "string"
+                      },
+                      "headline": {
+                        "bsonType": "string"
+                      },
+                      "matchScore": {
+                        "bsonType": "int"
+                      },
+                      "relevantExperience": {
+                        "bsonType": "array",
+                        "items": {
+                          "bsonType": "string"
+                        }
+                      },
+                      "skills": {
+                        "bsonType": "array",
+                        "items": {
+                          "bsonType": "string"
+                        }
+                      },
+                      "summary": {
+                        "bsonType": "string"
+                      }
+                    },
+                    "required": [
+                      "candidateName",
+                      "documentId",
+                      "downloadUrl",
+                      "fileName",
+                      "headline",
+                      "matchScore",
+                      "relevantExperience",
+                      "skills",
+                      "summary"
+                    ]
+                  }
+                },
+                "chatSessionId": {
+                  "bsonType": "objectId"
+                },
+                "content": {
+                  "bsonType": "string"
+                },
+                "createdAt": {
+                  "bsonType": "date"
+                },
+                "role": {
+                  "bsonType": "string"
+                },
+                "updatedAt": {
+                  "bsonType": "date"
+                }
+              },
+              "required": [
+                "_id",
+                "candidates",
+                "chatSessionId",
+                "content",
+                "createdAt",
+                "role",
+                "updatedAt"
+              ]
+            }
+          },
+          "validationLevel": "strict",
+          "validationAction": "error"
+        }
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "validator applied on chats",
+        "source": {
+          "kind": "listCollections"
+        },
+        "filter": {
+          "kind": "and",
+          "exprs": [
+            {
+              "kind": "field",
+              "field": "name",
+              "op": "$eq",
+              "value": "chats"
+            },
+            {
+              "kind": "field",
+              "field": "options.validationLevel",
+              "op": "$eq",
+              "value": "strict"
+            },
+            {
+              "kind": "field",
+              "field": "options.validationAction",
+              "op": "$eq",
+              "value": "error"
+            },
+            {
+              "kind": "field",
+              "field": "options.validator.$jsonSchema",
+              "op": "$eq",
+              "value": {
+                "additionalProperties": false,
+                "bsonType": "object",
+                "properties": {
+                  "_id": {
+                    "bsonType": "objectId"
+                  },
+                  "candidates": {
+                    "bsonType": "array",
+                    "items": {
+                      "additionalProperties": false,
+                      "bsonType": "object",
+                      "properties": {
+                        "candidateName": {
+                          "bsonType": "string"
+                        },
+                        "documentId": {
+                          "bsonType": "string"
+                        },
+                        "downloadUrl": {
+                          "bsonType": "string"
+                        },
+                        "fileName": {
+                          "bsonType": "string"
+                        },
+                        "headline": {
+                          "bsonType": "string"
+                        },
+                        "matchScore": {
+                          "bsonType": "int"
+                        },
+                        "relevantExperience": {
+                          "bsonType": "array",
+                          "items": {
+                            "bsonType": "string"
+                          }
+                        },
+                        "skills": {
+                          "bsonType": "array",
+                          "items": {
+                            "bsonType": "string"
+                          }
+                        },
+                        "summary": {
+                          "bsonType": "string"
+                        }
+                      },
+                      "required": [
+                        "candidateName",
+                        "documentId",
+                        "downloadUrl",
+                        "fileName",
+                        "headline",
+                        "matchScore",
+                        "relevantExperience",
+                        "skills",
+                        "summary"
+                      ]
+                    }
+                  },
+                  "chatSessionId": {
+                    "bsonType": "objectId"
+                  },
+                  "content": {
+                    "bsonType": "string"
+                  },
+                  "createdAt": {
+                    "bsonType": "date"
+                  },
+                  "role": {
+                    "bsonType": "string"
+                  },
+                  "updatedAt": {
+                    "bsonType": "date"
+                  }
+                },
+                "required": [
+                  "_id",
+                  "candidates",
+                  "chatSessionId",
+                  "content",
+                  "createdAt",
+                  "role",
+                  "updatedAt"
+                ]
+              }
+            }
+          ]
+        },
+        "expect": "exists"
+      }
+    ]
+  }
+]
