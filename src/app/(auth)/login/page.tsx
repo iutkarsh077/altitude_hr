@@ -38,6 +38,7 @@ const LoginPage = () => {
             });
 
             router.push("/");
+            router.refresh();
         } catch (error: any) {
             console.error("Login request failed:", error);
             toast.add({
