@@ -6,12 +6,13 @@ import { getCurrentUser } from "@/lib/auth";
 import { getResumeCollection } from "@/lib/chroma";
 import { getEmbeddings } from "@/lib/embeddings";
 import { db, client } from "@/prisma/db";
+import axios from "axios";
 
 export const runtime = "nodejs";
 
-const intentSchema = z.object({
-    isCandidateSearch: z.boolean(),
-});
+// const intentSchema = z.object({
+//     isCandidateSearch: z.boolean(),
+// });
 
 const candidateMatchSchema = z.object({
     matches: z.array(z.object({
@@ -56,16 +57,45 @@ export async function POST(req: Request) {
             model: process.env.OPENAI_CHAT_MODEL ?? "gpt-5.4-mini",
             temperature: 0,
         });
-        const intent = await model.withStructuredOutput(intentSchema).invoke(`
-Decide whether this request is specifically about finding, comparing, or evaluating candidates from resumes.
-Return false for general knowledge, coding help, jokes, weather, casual conversation, or any unrelated request.
 
-User request:
-${prompt}
-        `);
 
-        if (!intent.isCandidateSearch) {
-            return NextResponse.json({ matches: [], chatSessionDetail: null });
+        //         const intent = await model.withStructuredOutput(intentSchema).invoke(`
+        // Decide whether this request is specifically about finding, comparing, or evaluating candidates from resumes.
+        // Return false for general knowledge, coding help, jokes, weather, casual conversation, or any unrelated request.
+
+        // User request:
+        // ${prompt}
+        //         `);
+
+        const intent2 = await axios.post(
+            process.env.JEV_URL!,
+            {
+                state: prompt,
+                model: "jev-latest",
+                questions: {
+                    isSuitable: {
+                        type: "choice",
+                        // choices: ["true", "false"],
+                        instructions: "Is this request specifically about finding, comparing, or evaluating candidates from resumes?",
+                        criteria: {
+                            true: "The request is about finding, comparing, or evaluating candidates from resumes",
+                            false: "The request is not about candidates or resumes"
+                        }
+                    },
+                },
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.JEV_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        // console.log("Intent is: ",intent, intent2.data.answers.isSuitable.choice);
+
+        if (!intent2.data.answers.isSuitable.choice) {
+            return NextResponse.json({ matches: [], chatSessionDetail: chatSessionDetail });
         }
 
         if (!chatSessionDetail) {
@@ -88,7 +118,7 @@ ${prompt}
         const collection = await getResumeCollection();
         const search = await collection.query({
             queryEmbeddings: [queryEmbedding],
-            nResults: 12,
+            nResults: 4,
             // where: { userId: String(user._id) },
             include: ["documents", "metadatas", "distances"],
         });

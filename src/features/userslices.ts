@@ -10,7 +10,7 @@ const UserSlice = createSlice({
     initialState: initialUserDetails,
     reducers: {
         AddUserInformation: (state, action) => {
-            console.log("action is: ", action.payload)
+            // console.log("action is: ", action.payload)
             state.user = action.payload
         },
         ClearUserInformation: (state) => {

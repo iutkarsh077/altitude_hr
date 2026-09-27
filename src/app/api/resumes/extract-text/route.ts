@@ -12,6 +12,7 @@ import { getEmbeddings } from "@/lib/embeddings";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/prisma/db";
 import { s3BucketName, s3Client } from "@/lib/s3";
+import axios from "axios";
 
 export const runtime = "nodejs";
 
@@ -60,6 +61,40 @@ export async function POST(request: Request) {
 
         parser = new PDFParse({ data: pdfBytes });
         const extracted = await parser.getText();
+
+        // jev implementatinon
+        const isResume = await axios.post(
+            process.env.JEV_URL!,
+            {
+                state: extracted.text,
+                model: "jev-latest",
+                questions: {
+                    isSuitable: {
+                        type: "choice",
+                        instructions:
+                            "Determine whether the provided text represents a person's resume or CV.",
+                        criteria: {
+                            true:
+                                "The text is a resume or CV describing a person's professional or academic background. It typically contains several resume-related elements such as work experience, education, skills, projects, certifications, achievements, professional summary, contact information, or similar career-related information. It can be for a student, recent graduate, or experienced professional.",
+
+                            false:
+                                "The text is not a resume or CV. It is primarily a general question, job description, job posting, cover letter, email, article, documentation, code, conversation, product description, company information, or unrelated text, or it does not contain enough evidence that it represents a person's professional or academic profile."
+                        }
+                    },
+                },
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.JEV_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        if (!isResume.data.answers.isSuitable.choice) {
+            return NextResponse.json({ error: "This PDF did not looks like a resume" }, { status: 401 });
+        }
+
 
         if (!extracted.text.trim()) {
             return NextResponse.json({ error: "No extractable text found in PDF" }, { status: 422 });
