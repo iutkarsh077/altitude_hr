@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         const envMode: "test_mode" | "live_mode" =
             (process.env.DODOPAYMENT_ENVIRONMENT as any) || "test_mode";
 
-        console.log(`[DodoPayments Checkout] Creating test checkout session in "${envMode}" for product "${productId}"...`);
+        // console.log(`[DodoPayments Checkout] Creating test checkout session in "${envMode}" for product "${productId}"...`);
 
         const client = getDodoPaymentsClient(envMode);
 
@@ -39,14 +39,14 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        console.log("[DodoPayments Checkout] Generated checkout URL:", checkoutUrl);
+        // console.log("[DodoPayments Checkout] Generated checkout URL:", checkoutUrl);
 
         return NextResponse.json({
             url: checkoutUrl,
             sessionId: session.session_id || (session as any).id,
         });
     } catch (error: any) {
-        console.error("[DodoPayments Checkout Error]:", error);
+        // console.error("[DodoPayments Checkout Error]:", error);
 
         return NextResponse.json(
             {

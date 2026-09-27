@@ -35,34 +35,34 @@ export async function POST(req: NextRequest) {
         }
 
         const eventType = eventPayload?.type || eventPayload?.event || "unknown";
-        console.log(`[DodoPayment Webhook] Successfully verified event type: ${eventType}`);
+        // console.log(`[DodoPayment Webhook] Successfully verified event type: ${eventType}`);
 
         switch (eventType) {
             case "payment.succeeded":
             case "payment_succeeded":
-                console.log("[DodoPayment Webhook] Payment succeeded:", {
-                    paymentId: eventPayload.data?.payment_id,
-                    customer: eventPayload.data?.customer,
-                    amount: eventPayload.data?.amount,
-                });
+                // console.log("[DodoPayment Webhook] Payment succeeded:", {
+                //     paymentId: eventPayload.data?.payment_id,
+                //     customer: eventPayload.data?.customer,
+                //     amount: eventPayload.data?.amount,
+                // });
                 break;
 
             case "subscription.active":
             case "subscription_active":
             case "subscription.created":
-                console.log("[DodoPayment Webhook] Subscription active/created:", {
-                    subscriptionId: eventPayload.data?.subscription_id,
-                    customer: eventPayload.data?.customer,
-                });
+                // console.log("[DodoPayment Webhook] Subscription active/created:", {
+                //     subscriptionId: eventPayload.data?.subscription_id,
+                //     customer: eventPayload.data?.customer,
+                // });
                 break;
 
             case "payment.failed":
             case "payment_failed":
-                console.warn("[DodoPayment Webhook] Payment failed:", eventPayload.data);
+                // console.warn("[DodoPayment Webhook] Payment failed:", eventPayload.data);
                 break;
 
             default:
-                console.log(`[DodoPayment Webhook] Event ${eventType} received:`, eventPayload);
+            // console.log(`[DodoPayment Webhook] Event ${eventType} received:`, eventPayload);
         }
 
         return NextResponse.json({
