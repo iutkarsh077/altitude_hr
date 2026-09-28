@@ -14,9 +14,13 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
+    if (!currentUser && pathname === "/chat") {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
+
     return NextResponse.next();
 }
 
 export const config = {
-    matcher: ["/", "/login"],
+    matcher: ["/", "/login", "/chat"],
 };
