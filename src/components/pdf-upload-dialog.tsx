@@ -146,7 +146,7 @@ const PDFUploadDialog = () => {
                                 {selectedFile?.name ?? "Select a PDF file"}
                             </span>
                             <span className="mt-1 text-xs text-slate-500">
-                                PDF only, up to 10 MB
+                                PDF only, up to 2 MB
                             </span>
                             <input
                                 type="file"

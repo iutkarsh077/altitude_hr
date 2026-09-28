@@ -256,8 +256,8 @@ const ChatPage = () => {
         searchMutation.reset();
     };
 
-    const { data, isFetching } = useQuery({
-        queryKey: ["query", query?._id],
+    const { data } = useQuery({
+        queryKey: [query?._id],
         queryFn: async () => {
             const res = await api.post("/getchats", {
                 chatSessionId: query?._id,
@@ -265,7 +265,9 @@ const ChatPage = () => {
             return res.data;
         },
         enabled: !!query?._id,
+        retry: 3
     });
+
 
     useEffect(() => {
         if (data?.chats) {
