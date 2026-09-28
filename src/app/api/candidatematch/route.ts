@@ -92,9 +92,9 @@ export async function POST(req: Request) {
             }
         );
 
-        // console.log("Intent is: ",intent, intent2.data.answers.isSuitable.choice);
+        // console.log("Intent is: ", intent2.data);
 
-        if (!intent2.data.answers.isSuitable.choice) {
+        if (intent2.data.answers.isSuitable.choice === "false") {
             return NextResponse.json({ matches: [], chatSessionDetail: chatSessionDetail });
         }
 

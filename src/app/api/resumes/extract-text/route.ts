@@ -72,7 +72,7 @@ export async function POST(request: Request) {
                     isSuitable: {
                         type: "choice",
                         instructions:
-                            "Determine whether the provided text represents a person's resume or CV.",
+                            "Determine whether the provided text represents a person's resume or CV. Classify it as a resume/CV if its primary purpose is to present an individual's professional, educational, or career background, typically including information such as work experience, education, skills, projects, certifications, achievements, career summary, or professional contact information. The document does not need to contain all of these sections. Do not classify it as a resume/CV if it is primarily a job description, job posting, cover letter, email, company profile, generic biography, interview transcript, academic paper, assignment, documentation, or unrelated text. Base the decision on the overall purpose and structure of the document rather than individual keywords such as skills, experience, or education. Return only true if the text represents a person's resume/CV, or false if it does not.",
                         criteria: {
                             true:
                                 "The text is a resume or CV describing a person's professional or academic background. It typically contains several resume-related elements such as work experience, education, skills, projects, certifications, achievements, professional summary, contact information, or similar career-related information. It can be for a student, recent graduate, or experienced professional.",
@@ -91,7 +91,8 @@ export async function POST(request: Request) {
             }
         );
 
-        if (!isResume.data.answers.isSuitable.choice) {
+
+        if (isResume.data.answers.isSuitable.choice === "false") {
             return NextResponse.json({ error: "This PDF did not looks like a resume" }, { status: 401 });
         }
 

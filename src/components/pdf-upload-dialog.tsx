@@ -66,12 +66,13 @@ const PDFUploadDialog = () => {
             });
 
             if (!extractionResponse.ok) {
-                throw new Error("The resume was uploaded, but text extraction failed");
+                const isError = await extractionResponse.json();
+                throw new Error(isError.error || "The resume was uploaded, but text extraction failed");
             }
 
             return extractionResponse.json();
         },
-        retry: 3,
+        retry: 2,
         retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 8000),
         onSuccess: () => {
             toast.add({
@@ -164,7 +165,7 @@ const PDFUploadDialog = () => {
                                         toast.add({
                                             title: "PDF files only",
                                             description: "Choose a resume in PDF format.",
-                                            timeout: 3000,
+                                            timeout: 1000,
                                         });
                                         event.target.value = "";
                                         return;
@@ -173,8 +174,8 @@ const PDFUploadDialog = () => {
                                     if (file.size > 2 * 1024 * 1024) {
                                         toast.add({
                                             title: "File is too large",
-                                            description: "Choose a PDF smaller than 10 MB.",
-                                            timeout: 3000,
+                                            description: "Choose a PDF smaller than 2 MB.",
+                                            timeout: 1000,
                                         });
                                         event.target.value = "";
                                         return;
