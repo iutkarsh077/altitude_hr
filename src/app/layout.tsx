@@ -4,7 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "./providers";
 import { getCurrentUser } from "@/lib/auth";
-import { Toaster } from "@/components/ui/toast"
+import { Toaster } from "@/components/ui/toast";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -92,6 +93,18 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <StructuredData />
       </head>
       <body className="min-h-full flex flex-col">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XN4Y8B2P2H"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XN4Y8B2P2H');
+          `}
+        </Script>
         <Toaster />
         <Providers
           currentUser={currentUser ? {
