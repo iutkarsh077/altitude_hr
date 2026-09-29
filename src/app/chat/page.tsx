@@ -138,10 +138,10 @@ function CandidateCard({ candidate }: { candidate: CandidateMatch }) {
 }
 
 const EXAMPLE_PROMPTS = [
-    "Senior Fullstack Engineer with Next.js & TypeScript",
-    "Product Designer experienced in Figma & Design Systems",
-    "Backend Engineer with Python, FastAPI, and AWS",
-    "Data Scientist with Machine Learning & PyTorch skills",
+    "Find candidate for Senior Fullstack Engineer with Next.js & TypeScript",
+    "Find candidate for Product Designer with Figma & Design Systems",
+    "Find candidate for Backend Engineer with Python, FastAPI, and AWS",
+    "Find candidate for Data Scientist with Machine Learning & PyTorch",
 ];
 
 const ChatPage = () => {
