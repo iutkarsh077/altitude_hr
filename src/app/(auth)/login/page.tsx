@@ -114,7 +114,7 @@ const LoginPage = () => {
                                     theme="outline"
                                     size="large"
                                     shape="pill"
-                                    text="continue_with"
+                                    text="signin_with"
                                     width="100%"
                                 />
                             </GoogleOAuthProvider>

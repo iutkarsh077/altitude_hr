@@ -113,10 +113,14 @@ export default function CloudShaderHeroDemo() {
       < div className="relative z-10 mx-auto mt-12 w-full max-w-6xl px-4 pb-4 md:mt-16 md:px-8" >
         <div className="rounded-2xl border border-white/30 bg-white/20 p-2 shadow-2xl backdrop-blur-md md:rounded-[2rem] md:p-3">
           <Image
-            src="http://res.cloudinary.com/dakddv1pm/image/upload/v1790511256/posts/u9rhvfm7j3g4hrf65hrv.png"
-            alt="Altitude fintech dashboard"
-            className="w-full rounded-xl border border-black/5 shadow-lg md:rounded-3xl"
-            priority={true}
+            src="https://res.cloudinary.com/dakddv1pm/image/upload/v1790511256/posts/u9rhvfm7j3g4hrf65hrv.png"
+            alt="Altitude candidate search dashboard"
+            className="w-full h-auto rounded-xl border border-black/5 shadow-lg md:rounded-3xl"
+            width={1920}
+            height={1080}
+            // sizes="(max-width: 1200px) 100vw, 1200px"
+            priority
+            quality={100}
           />
         </div>
       </div >
