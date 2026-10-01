@@ -106,7 +106,7 @@ const LoginPage = () => {
                             <span>Signing in...</span>
                         </div>
                     ) : (
-                        <div className="w-full flex justify-center [&>div]:w-full [&>div>iframe]:mx-auto shadow-lg rounded-full overflow-hidden">
+                        <div className="w-full flex justify-center [&>div]:w-full [&>div>iframe]:!w-full [&>div>iframe]:mx-auto">
                             <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
                                 <GoogleLogin
                                     onSuccess={handleSuccessLogin}
